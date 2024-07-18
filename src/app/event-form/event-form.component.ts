@@ -6,7 +6,7 @@ import {FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-event-form',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,],
   templateUrl: './event-form.component.html',
   styleUrl: './event-form.component.css'
 })
