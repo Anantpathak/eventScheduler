@@ -1,0 +1,48 @@
+<table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <ng-container *ngIf="!isEditing(event); else editMode">
+          <td>
+            <a href="#" (click)="showDetails(event)">{{ event.title }}</a>
+          </td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.time }}</td>
+          <td>{{ event.description }}</td>
+          <td>
+            <button (click)="startEdit(event)">Edit</button>
+            <button (click)="deleteEvent(event.id)">Delete</button>
+          </td>
+        </ng-container>
+        <ng-template #editMode>
+          <td><input [(ngModel)]="editEvent.title" /></td>
+          <td><input [(ngModel)]="editEvent.date" type="date" /></td>
+          <td><input [(ngModel)]="editEvent.time" type="time" /></td>
+          <td><input [(ngModel)]="editEvent.description" /></td>
+          <td>
+            <button (click)="saveEdit()">Save</button>
+            <button (click)="cancelEdit()">Cancel</button>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- Modal Dialog -->
+  <div id="eventModal" class="modal" *ngIf="selectedEvent">
+    <div class="modal-content">
+      <span class="close" (click)="closeDetails()">&times;</span>
+      <h2>{{ selectedEvent.title }}</h2>
+      <p><strong>Date:</strong> {{ selectedEvent.date }}</p>
+      <p><strong>Time:</strong> {{ selectedEvent.time }}</p>
+      <p><strong>Description:</strong> {{ selectedEvent.description }}</p>
+    </div>
+  </div>
